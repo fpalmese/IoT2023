@@ -4,8 +4,8 @@ Home automation using [CoAPthon](https://github.com/Tanganelli/CoAPthon)
 
 How to run it:
 
-- install the requirements `pip install -r requirements.txt --user`
-- `python coapserver.py`
+- install the requirements `python3 -m pip install -r requirements.txt --user`
+- `python3 coapserver.py`
 
 Test:
 - install [coap-cli](https://github.com/avency/coap-cli)
