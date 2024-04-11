@@ -1,17 +1,12 @@
 // find more here: https://docs.arduino.cc/tutorials/mkr-wan-1300/lora-send-and-receive/
-
 #include <SPI.h>
 #include <LoRa.h>
-
-
-
-int counter = 0;
 
 void setup() {
   Serial.begin(9600);
   while (!Serial);
 
-  Serial.println("LoRa Sender");
+  Serial.println("LoRa Receiver");
 
   if (!LoRa.begin(868E6)) {
     Serial.println("Starting LoRa failed!");
@@ -20,16 +15,19 @@ void setup() {
 }
 
 void loop() {
-  Serial.print("Sending packet: ");
-  Serial.println(counter);
+  // try to parse packet
+  int packetSize = LoRa.parsePacket();
+  if (packetSize) {
+    // received a packet
+    Serial.print("Received packet '");
 
-  // send packet
-  LoRa.beginPacket();
-  LoRa.print("hello ");
-  LoRa.print(counter);
-  LoRa.endPacket();
+    // read packet
+    while (LoRa.available()) {
+      Serial.print((char)LoRa.read());
+    }
 
-  counter++;
-
-  delay(5000);
+    // print RSSI of packet
+    Serial.print("' with RSSI ");
+    Serial.println(LoRa.packetRssi());
+  }
 }
