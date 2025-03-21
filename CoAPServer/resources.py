@@ -272,12 +272,12 @@ class AdvancedResource(Resource):
         super(AdvancedResource, self).__init__(name, coap_server, visible=True,
                                             observable=obs, allow_children=True)
 
-        self.timer = threading.Timer(random.uniform(3.0, 10.9), self.periodic_read)
         self.periodic_read()
 
     def periodic_read(self):
         self.payload = read_temperature()
         if not self._coap_server.stopped.isSet():
+            self.timer = threading.Timer(random.uniform(3.0, 10.9), self.periodic_read)
             self.timer.setDaemon(True)
             self.timer.start()
 
