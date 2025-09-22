@@ -1,0 +1,3 @@
+[submodule "CTF-IoT-Polimi"]
+	path = CTF-IoT-Polimi
+	url = https://github.com/antonio-boiano/CTF-IoT-Polimi
